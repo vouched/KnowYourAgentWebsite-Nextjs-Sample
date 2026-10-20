@@ -1,0 +1,35 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+
+# Your Vouched keys live in .env.local, which must never be committed. .env.example only holds placeholders.
+.env*
+!.env.example
+
+# Created by the kya-os CLI (`kya-os setup`)
+.kya-os/
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts

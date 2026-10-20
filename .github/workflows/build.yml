@@ -1,0 +1,61 @@
+name: Build and Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  NEXT_TELEMETRY_DISABLED: 1
+
+jobs:
+  build:
+    name: Build and test (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      # Formatting and linting are platform independent, so they only need to run once
+      - name: Verify formatting
+        if: matrix.os == 'ubuntu-latest'
+        run: npm run format:check
+
+      - name: Lint
+        if: matrix.os == 'ubuntu-latest'
+        run: npm run lint
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      # No Vouched keys are needed: the tests replace the Vouched API with an in-memory fake
+      - name: Test
+        run: npm test
+
+      - name: Build
+        run: npm run build

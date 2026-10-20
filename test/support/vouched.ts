@@ -1,0 +1,42 @@
+export interface ReportedDetection {
+  readonly authorization: string | null;
+  // The JSON body Checkpoint sends to /api/v1/log-detection
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  readonly body: any;
+}
+
+/**
+ * Stands in for Vouched's API, so tests never touch the network. It records every detection Checkpoint reports and
+ * answers everything else, like requests for Checkpoint's latest detection rules, with a 404.
+ */
+class FakeVouched {
+  readonly reports: ReportedDetection[] = [];
+  readonly requests: string[] = [];
+
+  /** The status Vouched answers reports with, or "offline" to make it unreachable */
+  respondWith: number | "offline" = 200;
+
+  readonly fetch = async (input: string | URL | Request, init?: RequestInit): Promise<Response> => {
+    const request = new Request(input, init);
+    this.requests.push(`${request.method} ${request.url}`);
+
+    if (new URL(request.url).pathname !== "/api/v1/log-detection") {
+      return new Response("Not found", { status: 404 });
+    }
+
+    if (this.respondWith === "offline") {
+      throw new TypeError("fetch failed");
+    }
+
+    this.reports.push({ authorization: request.headers.get("authorization"), body: await request.json() });
+    return new Response(null, { status: this.respondWith });
+  };
+
+  reset() {
+    this.reports.length = 0;
+    this.requests.length = 0;
+    this.respondWith = 200;
+  }
+}
+
+export const vouched = new FakeVouched();

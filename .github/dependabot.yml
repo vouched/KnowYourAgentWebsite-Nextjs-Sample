@@ -1,0 +1,46 @@
+# Keeps npm packages and GitHub Actions up to date.
+# https://docs.github.com/code-security/dependabot/working-with-dependabot/dependabot-options-reference
+
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 10
+    groups:
+      # Checkpoint updates can change how traffic is classified, so they get their own PR;
+      # the detection tests in CI show exactly what changed
+      checkpoint:
+        patterns:
+          - "@kya-os/*"
+      # Next.js, React and their types are released together
+      nextjs:
+        patterns:
+          - next
+          - eslint-config-next
+          - react
+          - react-dom
+          - "@types/react"
+          - "@types/react-dom"
+      tooling:
+        patterns:
+          - eslint
+          - prettier
+          - typescript
+          - vitest
+          - "@types/node"
+    ignore:
+      # Matches the Node.js LTS in .nvmrc; bump both together
+      - dependency-name: "@types/node"
+        update-types:
+          - version-update:semver-major
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      github-actions:
+        patterns:
+          - "*"

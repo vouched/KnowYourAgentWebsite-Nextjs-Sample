@@ -42,7 +42,7 @@ You can find the completed code sample here: [https://github.com/TheCodeTraveler
 If you'd like to follow along, here are the steps.
 
 - An existing Next.js 16 app, using the App Router or the Pages Router
-- [Node.js 22](https://nodejs.org/en/download) or later
+- [Node.js 22.12](https://nodejs.org/en/download) or later
 - A free Vouched account: [kya.vouched.id/signup](https://kya.vouched.id/signup)
 
 Once you're signed in:
@@ -60,7 +60,7 @@ First, let's add the [`@kya-os/checkpoint-nextjs` npm package](https://www.npmjs
 npm install @kya-os/checkpoint-nextjs
 ```
 
-It brings along Vouched's detection engine, `@kya-os/checkpoint-wasm-runtime`, which we'll meet again in step 4.
+It brings along Vouched's detection engine, `@kya-os/checkpoint-wasm-runtime`, so there's nothing else to install.
 
 Heads-up: the package and its APIs use the name Checkpoint, so you'll see it throughout the code below.
 
@@ -90,9 +90,6 @@ Next.js runs `proxy.ts` before every request reaches our pages, which makes it t
 import { withCheckpoint } from "@kya-os/checkpoint-nextjs";
 
 export default withCheckpoint({
-  // Required: names our site for tenant policies, which we aren't using yet
-  tenantHost: "example.com",
-
   // Reports every request to our Vouched KYA dashboard
   apiKey: process.env.CHECKPOINT_API_KEY,
 
@@ -110,34 +107,12 @@ That's it! One function call. 🎉
 
 A couple of things worth pointing out:
 
-- **`tenantHost` is required.** The SDK uses it to look up tenant policies from a dashboard we haven't set up, so for Detect, any hostname works. I like using our own domain.
 - **`enforcementMode: "observe"` is observe mode.** `withCheckpoint` enforces by default, so I like being explicit here. That way, the next developer who reads our code knows we're intentionally not blocking anything (yet!).
 - **The `matcher` skips Next.js' static files.** Without it, Next.js runs `proxy.ts` for every JavaScript bundle, image and font too, and there's no reason to classify those.
 
 What if we forget to add our API key? Don't worry, our app still works! Without `apiKey`, the SDK still classifies every request, right on our machine. It just doesn't report anything to our dashboard.
 
-### 4. Keep the Detection Engine out of the Bundle
-
-There's one more step, and it's an important one!
-
-Next.js bundles our server code, including the npm packages it uses. That's great for performance, but the detection engine loads its WebAssembly file from its own package folder, and bundling breaks that path. The tricky part: `npm run build` still succeeds, and nothing shows up in our logs. Our production app just answers every request with an empty page! 😱 (In `npm run dev`, every page shows "Cannot find the middleware module" instead.)
-
-Thankfully, the fix is one line. In `next.config.ts`, let's tell Next.js to load the engine straight from `node_modules` with [`serverExternalPackages`](https://nextjs.org/docs/app/api-reference/config/next-config-js/serverExternalPackages):
-
-```ts
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  // ...our existing settings
-
-  // The detection engine loads its WebAssembly file from its own package folder, so don't bundle it
-  serverExternalPackages: ["@kya-os/checkpoint-wasm-runtime"],
-};
-
-export default nextConfig;
-```
-
-### 5. Click Run
+### 4. Click Run
 
 Now let's run our app and see what happens 👀
 
@@ -146,6 +121,8 @@ npm run dev
 ```
 
 Our website looks exactly the same in the browser. That's the point! Observe mode doesn't change anything for our visitors.
+
+In the terminal, we'll see one warning when the app starts: `[checkpoint] signed requests are claimed in this process only`. It's about AI agents that cryptographically sign their requests, which Vouched KYA accepts only once each. Without our Project ID, it keeps track of them in this one server process, which is all we need for detecting. We'll come back to it in a future post.
 
 To see Detect in action, let's pretend to be an AI agent. Open a second terminal and send a request using ChatGPT's user agent (on Windows PowerShell, type `curl.exe` instead of `curl`):
 
@@ -158,7 +135,7 @@ Among the response headers, we'll find these:
 ```text
 HTTP/1.1 200 OK
 x-checkpoint-engine: checkpoint-engine-wasm
-x-checkpoint-engine-version: 0.2.1
+x-checkpoint-engine-version: 0.7.0
 x-checkpoint-mode: observe
 x-checkpoint-would-have-been: Permit
 ```
@@ -171,7 +148,7 @@ Not seeing it? Add `debug: true` to `withCheckpoint` for a moment. The SDK's rep
 
 Let's try OpenAI's GPTBot crawler next by swapping in its user agent: `Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko); compatible; GPTBot/1.4; +https://openai.com/gptbot`. This time, the dashboard labels it a `bot` instead of an `ai_agent`. That's an important distinction: GPTBot is a crawler collecting training data, while ChatGPT-User is an AI assistant browsing on behalf of a real person.
 
-### 6. Read the Verdict in Code
+### 5. Read the Verdict in Code
 
 The dashboard is great, but the real power comes from using the verdict in our own code. The SDK calls `onResult` after it classifies each request, which is the perfect place to log it, send it to our analytics, or save it to our database.
 
@@ -179,7 +156,6 @@ Let's add `onResult` to `proxy.ts`, right after `enforcementMode`:
 
 ```ts
 export default withCheckpoint({
-  tenantHost: "example.com",
   apiKey: process.env.CHECKPOINT_API_KEY,
   enforcementMode: "observe",
 
@@ -212,7 +188,7 @@ x-checkpoint-would-have-been: Block
 x-checkpoint-would-have-been-reason: Tier3UAMatch
 ```
 
-Switch `enforcementMode` to `"enforce"`, and the SDK blocks them for real, with a `403 Forbidden`. But that's a topic for a future post!
+Switch `enforcementMode` to `"enforce"`, and the SDK blocks them for real: our ChatGPT `curl` request now gets a `403 Forbidden`. But that's a topic for a future post!
 
 ## Bonus: Unit Testing our Proxy
 
@@ -220,7 +196,14 @@ Here's a fun one: because the detection engine runs inside our app, we can unit 
 
 The sample repo includes a suite of [Vitest tests](https://github.com/TheCodeTraveler/KnowYourAgentWebsite-JavaScript-Nextjs/tree/main/test) that verify how ChatGPT, GPTBot, ClaudeBot, Googlebot, curl and a real Chrome browser are each classified, and exactly what the SDK reports to the dashboard for each one. I recommend copying this pattern into your own app. That way, whenever Dependabot proposes a `@kya-os/checkpoint-nextjs` update that changes how our traffic is classified, our CI pipeline tells us before our users notice!
 
-One tip if you use Vitest: add `@kya-os/checkpoint-nextjs` to `server.deps.inline` in your `vitest.config.mts`, like the sample does. Its ESM build imports `next/server` without a file extension, which only bundlers resolve, so Vitest needs to process it too.
+One tip if your tests use Next.js' helpers from `next/experimental/testing/server`, like the sample's do: those helpers expect the `AsyncLocalStorage` that Next.js normally sets up before anything else loads. Without it, the SDK's startup warning from step 4 fails our first test with "AsyncLocalStorage accessed in runtime where it is not available". The fix goes in our Vitest setup file, like the sample's [`setup.ts`](https://github.com/TheCodeTraveler/KnowYourAgentWebsite-JavaScript-Nextjs/blob/main/test/support/setup.ts):
+
+```ts
+import { AsyncLocalStorage } from "node:async_hooks";
+
+// Next.js sets this up before anything else loads, and its test helpers expect it
+(globalThis as { AsyncLocalStorage?: typeof AsyncLocalStorage }).AsyncLocalStorage ??= AsyncLocalStorage;
+```
 
 ## Conclusion
 
@@ -234,4 +217,4 @@ The sample is a small, open-source Next.js app that does everything in this post
 
 Building with .NET instead? The [same sample for ASP.NET Core](https://github.com/TheCodeTraveler/KnowYourAgentWebsite-Dotnet-Blazor) adds Vouched KYA with just two lines of code.
 
-Next, we'll move from observing to enforcing: blocking and challenging AI agents with Enforce. Make sure to subscribe to the [Vouched KYA newsletter](TODO-newsletter-link) so you don't miss it! 👇
+Next, we'll move from observing to enforcing: blocking and challenging AI agents with Enforce. Make sure to subscribe to the Vouched KYA newsletter at the bottom of the [Vouched KYA home page](https://kya.vouched.id) so you don't miss it!

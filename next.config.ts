@@ -31,8 +31,6 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
   poweredByHeader: false,
-  // The Checkpoint engine reads its WebAssembly from its own package folder, which only works when it isn't bundled
-  serverExternalPackages: ["@kya-os/checkpoint-wasm-runtime"],
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },

@@ -6,8 +6,9 @@ export interface ReportedDetection {
 }
 
 /**
- * Stands in for Vouched's API, so tests never touch the network. It records every detection Checkpoint reports and
- * answers everything else, like requests for Checkpoint's latest detection rules, with a 404.
+ * Stands in for Vouched's API, so tests never touch the network. It records every detection Checkpoint reports, serves
+ * your project's policy to requests that carry an API key, as Vouched does, and answers everything else, like requests
+ * for Checkpoint's latest detection rules, with a 404.
  */
 class FakeVouched {
   readonly reports: ReportedDetection[] = [];
@@ -20,7 +21,17 @@ class FakeVouched {
     const request = new Request(input, init);
     this.requests.push(`${request.method} ${request.url}`);
 
-    if (new URL(request.url).pathname !== "/api/v1/log-detection") {
+    const { pathname } = new URL(request.url);
+
+    // A project with no policies deployed yet. Vouched answers 401 without an API key, and since
+    // @kya-os/checkpoint-nextjs 1.11.0, a policy the SDK can't fetch makes it answer every request with a 503.
+    if (pathname.startsWith("/api/internal/policies/")) {
+      return request.headers.get("authorization")
+        ? Response.json({ blockThreshold: 70, enabled: true })
+        : new Response("Unauthorized", { status: 401 });
+    }
+
+    if (pathname !== "/api/v1/log-detection") {
       return new Response("Not found", { status: 404 });
     }
 

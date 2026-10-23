@@ -48,7 +48,7 @@ The API key is optional:
 
 ## Run it
 
-New to JavaScript? No problem. These steps start from a computer with nothing installed. If you already use Node.js 22 or later, skip to [step 2](#2-download-the-code).
+New to JavaScript? No problem. These steps start from a computer with nothing installed. If you already use Node.js 22.12 or later, skip to [step 2](#2-download-the-code).
 
 ### 1. Install the prerequisites
 
@@ -78,7 +78,7 @@ npm --version
 git --version
 ```
 
-You should see `v24` or later (`v22` works too) for Node.js, and any version number for npm and Git.
+You should see `v24` or later (`v22.12` or later works too) for Node.js, and any version number for npm and Git.
 
 > [!TIP]
 > Rather not install Git? On this repository's GitHub page, click **Code**, then **Download ZIP**, unzip it and open a terminal in the unzipped folder. Then skip the `git clone` and `cd` commands below.
@@ -172,7 +172,7 @@ Checkpoint's Next.js middleware comes from the [`@kya-os/checkpoint-nextjs`](htt
 | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | [`src/proxy.ts`](src/proxy.ts)                                                       | `withCheckpoint(checkpointConfig())` runs Checkpoint on every request the `matcher` covers. Next.js 16 calls this file `proxy.ts`; older versions call it `middleware.ts`                        |
 | [`src/checkpoint.ts`](src/checkpoint.ts)                                             | Checkpoint's settings, starting in observe mode, plus your keys from the environment. Without an API key, the middleware classifies requests locally instead of failing to reach your dashboard  |
-| [`next.config.ts`](next.config.ts)                                                   | Keeps the engine's WebAssembly package out of the bundle with `serverExternalPackages`, which it needs to load, and sends security headers                                                       |
+| [`next.config.ts`](next.config.ts)                                                   | Turns on Cache Components and sends security headers, including a Content-Security-Policy in production                                                                                          |
 | [`src/components/checkpoint-pixel.tsx`](src/components/checkpoint-pixel.tsx)         | Adds the Checkpoint pixel, which only needs your Project ID                                                                                                                                      |
 | [`src/lib/simulation/traffic-simulator.ts`](src/lib/simulation/traffic-simulator.ts) | Runs each simulated visit through `withCheckpoint`, reads the verdict with `onResult`, and reports it with the same payload the middleware sends, so it can tell you whether Vouched accepted it |
 | [`src/lib/simulation/visitors.ts`](src/lib/simulation/visitors.ts)                   | The real user agents of the simulated visitors. Add your own!                                                                                                                                    |
@@ -226,7 +226,7 @@ These tests pin the behavior of the `@kya-os/checkpoint-nextjs` package. When De
 
 ## Deploying
 
-Build with `npm run build`, then run `npm start` on any Node.js 22+ host, or deploy to a platform like [Vercel](https://vercel.com). Either way:
+Build with `npm run build`, then run `npm start` on any Node.js 22.12+ host, or deploy to a platform like [Vercel](https://vercel.com). Either way:
 
 - Set `CHECKPOINT_PROJECT_ID` (and optionally `CHECKPOINT_API_KEY`) in your host's environment variables. Without a Project ID, every page returns an error and the server log explains how to fix it.
 - Point your host's health probe at `/healthz`.

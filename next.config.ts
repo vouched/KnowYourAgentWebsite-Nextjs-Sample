@@ -31,7 +31,8 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
   poweredByHeader: false,
-  // The Checkpoint engine reads its WebAssembly from its own package folder, which only works when it isn't bundled
+  // Load the Checkpoint engine from node_modules instead of bundling it. In Server Functions and Server Components,
+  // Turbopack turns the engine's own path to its WebAssembly file into a web URL, so the engine fails to load there
   serverExternalPackages: ["@kya-os/checkpoint-wasm-runtime"],
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];

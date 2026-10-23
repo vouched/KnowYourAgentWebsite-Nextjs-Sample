@@ -13,12 +13,6 @@ export default defineConfig({
     environment: "node",
     include: ["test/**/*.test.ts"],
     setupFiles: ["./test/support/setup.ts"],
-    server: {
-      deps: {
-        // Its ESM build imports `next/server` without a file extension, which only bundlers resolve
-        inline: ["@kya-os/checkpoint-nextjs"],
-      },
-    },
     restoreMocks: true,
     unstubEnvs: true,
     unstubGlobals: true,

@@ -10,9 +10,6 @@ export function checkpointConfig(env: Environment = process.env): CheckpointConf
   const { projectId, apiKey } = readCredentials(env);
 
   return {
-    // Names your site for a reputation policy you host at `dashboardUrl`. Without one, every visitor starts trusted.
-    tenantHost: "localhost",
-
     // 'observe' classifies every request but never blocks one. Change it to 'enforce' to block the visitors that the
     // engine flags with `tier3Action` below.
     enforcementMode: "observe",

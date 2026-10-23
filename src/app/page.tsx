@@ -11,13 +11,13 @@ export default function HomePage() {
     <>
       <section className="intro" aria-labelledby="intro-title">
         <div className="container">
-          <p className="kicker">Next.js sample · Checkpoint Detect</p>
+          <p className="kicker">Next.js sample · Vouched KYA Detect</p>
           <h1 id="intro-title" className="intro__title">
             See AI agents arrive in your Vouched dashboard
           </h1>
           <p className="lead">
-            This app runs the Checkpoint middleware on every request. Connect your project, send it a burst of simulated
-            AI agent and bot traffic, then open your dashboard to watch it arrive.
+            This app runs the Vouched KYA middleware on every request. Connect your project, send it a burst of
+            simulated AI agent and bot traffic, then open your dashboard to watch it arrive.
           </p>
         </div>
       </section>

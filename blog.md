@@ -12,8 +12,6 @@ You've probably heard of KYC (Know Your Customer). [Know Your Agent](https://kya
 
 You can find the completed code sample here: [https://github.com/TheCodeTraveler/KnowYourAgentWebsite-JavaScript-Nextjs](https://github.com/TheCodeTraveler/KnowYourAgentWebsite-JavaScript-Nextjs)
 
-![The sample app sending simulated AI agent and bot traffic through Vouched KYA](docs/images/simulated-traffic.png)
-
 ### Prerequisites
 
 - A Next.js 16 app, using the App Router or the Pages Router
@@ -126,6 +124,12 @@ Because the engine runs inside our app, we can unit test `proxy.ts` with any use
 
 AI agents are already visiting our websites, and with `@kya-os/checkpoint-nextjs`, it only takes one function call (and zero dollars) to start seeing them.
 
-The [completed sample](https://github.com/TheCodeTraveler/KnowYourAgentWebsite-JavaScript-Nextjs) does everything in this post, plus one fun extra: paste your Project ID and API key into the page, click **Send simulated traffic**, and watch ChatGPT, Claude, Perplexity, GPTBot and more arrive in your dashboard! Building with .NET instead? Check out the [ASP.NET Core sample](https://github.com/TheCodeTraveler/KnowYourAgentWebsite-Dotnet-Blazor).
+The [completed sample](https://github.com/TheCodeTraveler/KnowYourAgentWebsite-JavaScript-Nextjs) does everything in this post, plus one fun extra: paste your Project ID and API key into the page, click **Send simulated traffic**, and watch ChatGPT, Claude, Perplexity, GPTBot and more arrive in your dashboard!
+
+![The sample app sending simulated AI agent and bot traffic through Vouched KYA](docs/images/simulated-traffic.png)
+
+_Why "Would be blocked"? The sample adds `engineConfig: { tier3Action: "block" }`, which tells Vouched KYA to block known AI agents, AI crawlers and headless browsers. Our `proxy.ts` leaves it out, which is why ChatGPT got `Permit`. In observe mode, nothing gets blocked either way._
+
+Building with .NET instead? Check out the [ASP.NET Core sample](https://github.com/TheCodeTraveler/KnowYourAgentWebsite-Dotnet-Blazor).
 
 Next, we'll move from observing to enforcing with Enforce. Subscribe to the Vouched KYA newsletter at the bottom of the [Vouched KYA home page](https://kya.vouched.id) so you don't miss it!

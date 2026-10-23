@@ -47,13 +47,13 @@ export async function connectProject(_previous: ConnectProjectState, formData: F
   try {
     await updateEnvFile(envFilePath(), values);
   } catch (error) {
-    console.error(`Couldn't save your Checkpoint keys to ${ENV_FILE_NAME}`, error);
+    console.error(`Couldn't save your Vouched KYA keys to ${ENV_FILE_NAME}`, error);
     const reason = error instanceof Error ? error.message : String(error);
     return { status: "failed", message: `Your keys couldn't be saved to ${ENV_FILE_NAME}: ${reason}` };
   }
 
   console.info(
-    `Saved Checkpoint project ${credentials.projectId} to ${ENV_FILE_NAME} (API key added: ${credentials.apiKey !== undefined})`,
+    `Saved Vouched KYA project ${credentials.projectId} to ${ENV_FILE_NAME} (API key added: ${credentials.apiKey !== undefined})`,
   );
 
   if (!(await waitForEnvironment(values))) {

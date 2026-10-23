@@ -43,7 +43,7 @@ export async function sendSimulatedTraffic(origin: URL, config: CheckpointConfig
     const response = await engine(request);
     const result = results.get(request);
     if (!result) {
-      throw new Error(`Checkpoint didn't classify the ${visitor.name} visit.`);
+      throw new Error(`Vouched KYA didn't classify the ${visitor.name} visit.`);
     }
 
     classified.push({ visitor, result });

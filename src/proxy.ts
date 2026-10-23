@@ -21,7 +21,7 @@ export default async function proxy(
     if (!warnedAboutFault) {
       warnedAboutFault = true;
       console.warn(
-        "Checkpoint couldn't check your requests (see the error above), so this dev server lets them through. If " +
+        "Vouched KYA couldn't check your requests (see the error above), so this dev server lets them through. If " +
           "Vouched rejected your API key, paste a new one in step 1.",
       );
     }

@@ -9,9 +9,9 @@ import { site } from "@/lib/site";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: { default: `${site.name} · Checkpoint by Vouched sample`, template: `%s · ${site.name}` },
+  title: { default: `${site.name} · Vouched KYA sample`, template: `%s · ${site.name}` },
   description:
-    "A Next.js sample that detects AI agents with Checkpoint by Vouched and sends simulated agent traffic to your dashboard.",
+    "A Next.js sample that detects AI agents with Vouched KYA and sends simulated agent traffic to your dashboard.",
 };
 
 export const viewport: Viewport = {

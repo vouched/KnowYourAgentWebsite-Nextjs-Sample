@@ -59,7 +59,7 @@ describe("Walkthrough", () => {
     expect(deliveryMessage(report({ delivery: "delivered" }))).toEqual({
       tone: "success",
       icon: "check",
-      text: "Delivered 9 detections to your Checkpoint dashboard.",
+      text: "Delivered 9 detections to your Vouched KYA dashboard.",
     });
   });
 

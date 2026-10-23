@@ -13,7 +13,7 @@ export function SiteHeader() {
           <BrandMark size={30} />
           <span className="brand__text">
             <span className="brand__name">{site.name}</span>
-            <span className="brand__by">Checkpoint by Vouched</span>
+            <span className="brand__by">A Vouched KYA sample</span>
           </span>
         </Link>
 

@@ -156,6 +156,7 @@ And the files you'd look for in a .NET project:
 - **Next.js says your Node.js version is too old.** Install Node.js 24 as described above, then open a new terminal.
 - **Port 3000 is in use.** Next.js tries the next free port and prints it; open that address instead.
 - **Nothing shows up in your dashboard.** See [Not seeing traffic in your dashboard?](#not-seeing-traffic-in-your-dashboard)
+- **Every page says `Service temporarily unavailable` (HTTP 503).** Checkpoint couldn't load your dashboard's policies, usually because Vouched rejected your API key. On your own machine with `npm run dev`, the page still loads and the terminal says so: paste a new key in step 1. A deployed app keeps answering 503 until it has a working key.
 
 ## Not seeing traffic in your dashboard?
 

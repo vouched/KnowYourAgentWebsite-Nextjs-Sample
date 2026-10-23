@@ -17,6 +17,9 @@ class FakeVouched {
   /** The status Vouched answers reports with, or "offline" to make it unreachable */
   respondWith: number | "offline" = 200;
 
+  /** Turns away the API key when Checkpoint fetches your project's policy, as Vouched does with a revoked key */
+  rejectApiKey = false;
+
   readonly fetch = async (input: string | URL | Request, init?: RequestInit): Promise<Response> => {
     const request = new Request(input, init);
     this.requests.push(`${request.method} ${request.url}`);
@@ -26,7 +29,7 @@ class FakeVouched {
     // A project with no policies deployed yet. Vouched answers 401 without an API key, and since
     // @kya-os/checkpoint-nextjs 1.11.0, a policy the SDK can't fetch makes it answer every request with a 503.
     if (pathname.startsWith("/api/internal/policies/")) {
-      return request.headers.get("authorization")
+      return request.headers.get("authorization") && !this.rejectApiKey
         ? Response.json({ blockThreshold: 70, enabled: true })
         : new Response("Unauthorized", { status: 401 });
     }
@@ -47,6 +50,7 @@ class FakeVouched {
     this.reports.length = 0;
     this.requests.length = 0;
     this.respondWith = 200;
+    this.rejectApiKey = false;
   }
 }
 

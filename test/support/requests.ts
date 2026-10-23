@@ -28,10 +28,11 @@ export async function loadProxy(env: Record<string, string> = {}): Promise<Middl
 export async function visit(
   middleware: Middleware,
   userAgent: string,
-  options: { accept?: string; headers?: Record<string, string> } = {},
+  options: { accept?: string; headers?: Record<string, string>; method?: string } = {},
 ): Promise<NextResponse> {
   const pending: Promise<unknown>[] = [];
   const request = new NextRequest("http://localhost:3000/", {
+    method: options.method ?? "GET",
     headers: {
       "user-agent": userAgent,
       accept: options.accept ?? "text/html,application/xhtml+xml",
@@ -43,6 +44,13 @@ export async function visit(
   await Promise.all(pending);
   return response;
 }
+
+// What Next.js' dev server sees when you browse to http://localhost:3000 on the machine running it
+export const LOCAL_DEVELOPER_HEADERS = {
+  host: "localhost:3000",
+  "x-forwarded-host": "localhost:3000",
+  "x-forwarded-for": "::1",
+};
 
 export function userAgentOf(visitorId: string): string {
   const visitor = simulatedVisitors.find((candidate) => candidate.id === visitorId);

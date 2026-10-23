@@ -52,8 +52,8 @@ export const simulatedVisitors: readonly SimulatedVisitor[] = [
     operator: "OpenAI",
     description: "Crawls the web to train OpenAI models",
     kind: "bot",
-    token: "GPTBot/1.2",
-    userAgent: "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; GPTBot/1.2; +https://openai.com/gptbot)",
+    token: "GPTBot/1.4",
+    userAgent: "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko); compatible; GPTBot/1.4; +https://openai.com/gptbot",
   },
   {
     id: "claudebot",

@@ -34,7 +34,7 @@ export function deliveryMessage(report: SimulationReport): DeliveryMessage {
       return {
         tone: "success",
         icon: "check",
-        text: `Delivered ${report.reportedCount} detections to your Checkpoint dashboard.`,
+        text: `Delivered ${report.reportedCount} detections to your Vouched KYA dashboard.`,
       };
     case "local-only":
       return {

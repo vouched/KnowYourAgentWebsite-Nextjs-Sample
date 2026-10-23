@@ -77,8 +77,8 @@ export function Walkthrough({ projectId, apiKeyHint, canUseDeveloperTools, envFi
 
               {!hasApiKey && (
                 <p className="step__text step__text--below">
-                  The Checkpoint pixel on this page is reporting your visits to your dashboard. Add an API key to report
-                  this app&apos;s server-side detections too, like the simulated traffic in step 2.{" "}
+                  The Vouched KYA pixel on this page is reporting your visits to your dashboard. Add an API key to
+                  report this app&apos;s server-side detections too, like the simulated traffic in step 2.{" "}
                   <a href={readmeUrl("3-create-an-api-key-optional")} target="_blank" rel="noopener">
                     How to create one
                   </a>
@@ -103,7 +103,7 @@ export function Walkthrough({ projectId, apiKeyHint, canUseDeveloperTools, envFi
                   kya.vouched.id
                 </a>
                 , open <strong>Installations</strong> and copy your <strong>Project ID</strong>. That&apos;s all the
-                Checkpoint pixel needs. Add an <strong>API key</strong> (it starts with <code>sk_</code>) too, so this
+                Vouched KYA pixel needs. Add an <strong>API key</strong> (it starts with <code>sk_</code>) too, so this
                 app&apos;s middleware can report the simulated traffic in step 2.{" "}
                 <a href={readmeUrl("get-your-project-id-and-api-key")} target="_blank" rel="noopener">
                   Step-by-step instructions
@@ -145,8 +145,8 @@ export function Walkthrough({ projectId, apiKeyHint, canUseDeveloperTools, envFi
           </header>
 
           <p className="step__text" data-testid="simulate-instructions">
-            Each visitor below sends one request through the Checkpoint middleware in this app, using the user agent it
-            really sends. Checkpoint classifies it like any live request and reports it to your dashboard.
+            Each visitor below sends one request through the Vouched KYA middleware in this app, using the user agent it
+            really sends. Vouched KYA classifies it like any live request and reports it to your dashboard.
             {hasProjectId && !hasApiKey && " This step requires an API key, so add yours in step 1 first."}
           </p>
 
@@ -227,7 +227,7 @@ export function Walkthrough({ projectId, apiKeyHint, canUseDeveloperTools, envFi
 
           <ul className="notes">
             <li>
-              Checkpoint recognizes these visitors by the user agent each one declares. That tells it the agent&apos;s
+              Vouched KYA recognizes these visitors by the user agent each one declares. That tells it the agent&apos;s
               name, not who really sent the request; agents that sign their requests can be{" "}
               <a href={vouchedLinks.verificationDocs} target="_blank" rel="noopener">
                 verified cryptographically
@@ -237,7 +237,7 @@ export function Walkthrough({ projectId, apiKeyHint, canUseDeveloperTools, envFi
             <li>
               Try this: change <code>enforcementMode</code> in <code>src/checkpoint.ts</code> from{" "}
               <code>&apos;observe&apos;</code> to <code>&apos;enforce&apos;</code> and send again to see which visitors
-              Checkpoint blocks.
+              Vouched KYA blocks.
             </li>
           </ul>
 
@@ -269,7 +269,7 @@ export function Walkthrough({ projectId, apiKeyHint, canUseDeveloperTools, envFi
                 Open <strong>Activity</strong> under <strong>Detect</strong> for project <code>{projectId}</code>.{" "}
                 {hasApiKey
                   ? "Every simulated visit shows up there with its class, confidence and agent name, usually within a minute, along with your own visit to this page."
-                  : "Your own visit to this page shows up there within a minute, reported by the Checkpoint pixel."}
+                  : "Your own visit to this page shows up there within a minute, reported by the Vouched KYA pixel."}
               </>
             ) : (
               <>
@@ -286,7 +286,7 @@ export function Walkthrough({ projectId, apiKeyHint, canUseDeveloperTools, envFi
             target="_blank"
             rel="noopener"
           >
-            Open your Checkpoint dashboard
+            Open your Vouched KYA dashboard
             <Icon name="external" size={16} />
           </a>
 

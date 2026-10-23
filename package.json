@@ -2,7 +2,7 @@
   "name": "know-your-agent-nextjs",
   "version": "1.0.0",
   "private": true,
-  "description": "A Next.js sample that detects AI agents with Checkpoint by Vouched",
+  "description": "A Next.js sample that detects AI agents with Vouched KYA",
   "license": "MIT",
   "engines": {
     "node": ">=22.12"

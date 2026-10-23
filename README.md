@@ -1,19 +1,19 @@
-# Know Your Agent: a Checkpoint by Vouched sample for Next.js
+# Know Your Agent: a Vouched KYA sample for Next.js
 
 [![Build and Test](https://github.com/TheCodeTraveler/KnowYourAgentWebsite-JavaScript-Nextjs/actions/workflows/build.yml/badge.svg)](https://github.com/TheCodeTraveler/KnowYourAgentWebsite-JavaScript-Nextjs/actions/workflows/build.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-453FC1.svg)](LICENSE)
 [![Node.js 24](https://img.shields.io/badge/Node.js-24-5FA04E.svg)](https://nodejs.org/en/download)
 [![@kya-os/checkpoint-nextjs on npm](https://img.shields.io/npm/v/@kya-os/checkpoint-nextjs.svg?label=%40kya-os%2Fcheckpoint-nextjs)](https://www.npmjs.com/package/@kya-os/checkpoint-nextjs)
 
-A small Next.js app that shows how to add [Checkpoint by Vouched](https://kya.vouched.id/docs/integrations/nextjs) to a website. Run it, connect your Vouched project, send it simulated AI agent and bot traffic, and watch every visit arrive in your Checkpoint dashboard.
+A small Next.js app that shows how to add [Vouched KYA](https://kya.vouched.id/docs/integrations/nextjs) to a website. Run it, connect your Vouched project, send it simulated AI agent and bot traffic, and watch every visit arrive in your Vouched KYA dashboard.
 
 Prefer .NET? The same sample for ASP.NET Core lives in [KnowYourAgentWebsite-Dotnet-Blazor](https://github.com/TheCodeTraveler/KnowYourAgentWebsite-Dotnet-Blazor).
 
-![ChatGPT, Claude, Perplexity, GPTBot, ClaudeBot, Googlebot, Headless Chrome, curl and a Python script, each classified by Checkpoint and delivered to the dashboard](docs/images/simulated-traffic.png)
+![ChatGPT, Claude, Perplexity, GPTBot, ClaudeBot, Googlebot, Headless Chrome, curl and a Python script, each classified by Vouched KYA and delivered to the dashboard](docs/images/simulated-traffic.png)
 
 ## Get your Project ID and API key
 
-You need a free Vouched account and a Checkpoint project. Detect is free, so there's no credit card to enter.
+You need a free Vouched account and a Vouched KYA project. Detect is free, so there's no credit card to enter.
 
 ### 1. Create a project
 
@@ -41,10 +41,10 @@ Once these commands are run, you'll find `CHECKPOINT_PROJECT_ID` and `CHECKPOINT
 
 The API key is optional:
 
-| You add                | What shows up in your dashboard                                                                 |
-| ---------------------- | ----------------------------------------------------------------------------------------------- |
-| Project ID             | Your visits to this sample, reported by the Checkpoint pixel in your browser                    |
-| Project ID and API key | Your visits, plus everything the Checkpoint middleware detects, including the simulated traffic |
+| You add                | What shows up in your dashboard                                                                  |
+| ---------------------- | ------------------------------------------------------------------------------------------------ |
+| Project ID             | Your visits to this sample, reported by the Vouched KYA pixel in your browser                    |
+| Project ID and API key | Your visits, plus everything the Vouched KYA middleware detects, including the simulated traffic |
 
 ## Run it
 
@@ -117,7 +117,7 @@ The app reloads by itself whenever you save a change to its code. To stop it, cl
 ### 5. Follow the three steps on the page
 
 1. **Connect your Vouched project.** Paste your Project ID, and your API key if you have it. The app saves them to `.env.local`, and Next.js picks them up a moment later, with no restart needed.
-2. **Send simulated traffic.** This step requires an API key. One button sends a request from ChatGPT, Claude, Perplexity, GPTBot, ClaudeBot, Googlebot, Headless Chrome, curl and a Python script through the Checkpoint middleware, shows how Checkpoint classified each one, and reports every visit to your dashboard.
+2. **Send simulated traffic.** This step requires an API key. One button sends a request from ChatGPT, Claude, Perplexity, GPTBot, ClaudeBot, Googlebot, Headless Chrome, curl and a Python script through the Vouched KYA middleware, shows how Vouched KYA classified each one, and reports every visit to your dashboard.
 3. **Watch it arrive in your dashboard.** Open [your dashboard](https://kya.vouched.id/dashboard), switch to the project you connected, and go to **Detect → Activity**. With an API key, each simulated visit appears with its class, confidence and agent name, usually within a minute. With only a Project ID, look for your own visit, reported by the pixel.
 
 ![Step 1: paste your Project ID and, optionally, your API key](docs/images/connect-your-project.png)
@@ -156,7 +156,7 @@ And the files you'd look for in a .NET project:
 - **Next.js says your Node.js version is too old.** Install Node.js 24 as described above, then open a new terminal.
 - **Port 3000 is in use.** Next.js tries the next free port and prints it; open that address instead.
 - **Nothing shows up in your dashboard.** See [Not seeing traffic in your dashboard?](#not-seeing-traffic-in-your-dashboard)
-- **Every page says `Service temporarily unavailable` (HTTP 503).** Checkpoint couldn't load your dashboard's policies, usually because Vouched rejected your API key. On your own machine with `npm run dev`, the page still loads and the terminal says so: paste a new key in step 1. A deployed app keeps answering 503 until it has a working key.
+- **Every page says `Service temporarily unavailable` (HTTP 503).** Vouched KYA couldn't load your dashboard's policies, usually because Vouched rejected your API key. On your own machine with `npm run dev`, the page still loads and the terminal says so: paste a new key in step 1. A deployed app keeps answering 503 until it has a working key.
 
 ## Not seeing traffic in your dashboard?
 
@@ -167,20 +167,20 @@ And the files you'd look for in a .NET project:
 
 ## How it works
 
-Checkpoint's Next.js middleware comes from the [`@kya-os/checkpoint-nextjs`](https://www.npmjs.com/package/@kya-os/checkpoint-nextjs) npm package. It runs Vouched's detection engine inside your app, classifies every request as a person, an AI agent or a bot before your pages run, and reports what it sees to your dashboard.
+Vouched KYA's Next.js middleware comes from the [`@kya-os/checkpoint-nextjs`](https://www.npmjs.com/package/@kya-os/checkpoint-nextjs) npm package. It runs Vouched's detection engine inside your app, classifies every request as a person, an AI agent or a bot before your pages run, and reports what it sees to your dashboard. The package and its APIs use the name Checkpoint, so you'll see it throughout the code.
 
 | File                                                                                 | What to look at                                                                                                                                                                                        |
 | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| [`src/proxy.ts`](src/proxy.ts)                                                       | `withCheckpoint(checkpointConfig())` runs Checkpoint on every request the `matcher` covers. Next.js 16 calls this file `proxy.ts`; older versions call it `middleware.ts`                              |
-| [`src/checkpoint.ts`](src/checkpoint.ts)                                             | Checkpoint's settings, starting in observe mode, plus your keys from the environment. Without an API key, the middleware classifies requests locally instead of failing to reach your dashboard        |
+| [`src/proxy.ts`](src/proxy.ts)                                                       | `withCheckpoint(checkpointConfig())` runs Vouched KYA on every request the `matcher` covers. Next.js 16 calls this file `proxy.ts`; older versions call it `middleware.ts`                             |
+| [`src/checkpoint.ts`](src/checkpoint.ts)                                             | Vouched KYA's settings, starting in observe mode, plus your keys from the environment. Without an API key, the middleware classifies requests locally instead of failing to reach your dashboard       |
 | [`next.config.ts`](next.config.ts)                                                   | Loads the engine from `node_modules` with `serverExternalPackages`, which the traffic simulator's Server Function needs, and sends security headers, including a Content-Security-Policy in production |
-| [`src/components/checkpoint-pixel.tsx`](src/components/checkpoint-pixel.tsx)         | Adds the Checkpoint pixel, which only needs your Project ID                                                                                                                                            |
+| [`src/components/checkpoint-pixel.tsx`](src/components/checkpoint-pixel.tsx)         | Adds the Vouched KYA pixel, which only needs your Project ID                                                                                                                                           |
 | [`src/lib/simulation/traffic-simulator.ts`](src/lib/simulation/traffic-simulator.ts) | Runs each simulated visit through `withCheckpoint`, reads the verdict with `onResult`, and reports it with the same payload the middleware sends, so it can tell you whether Vouched accepted it       |
 | [`src/lib/simulation/visitors.ts`](src/lib/simulation/visitors.ts)                   | The real user agents of the simulated visitors. Add your own!                                                                                                                                          |
-| [`src/app/blocked/page.tsx`](src/app/blocked/page.tsx)                               | The page Checkpoint shows the agents it blocks in enforce mode                                                                                                                                         |
+| [`src/app/blocked/page.tsx`](src/app/blocked/page.tsx)                               | The page Vouched KYA shows the agents it blocks in enforce mode                                                                                                                                        |
 | [`src/instrumentation.ts`](src/instrumentation.ts)                                   | In production, the app won't serve pages without a Project ID, and its log says exactly how to add one                                                                                                 |
 
-Checkpoint recognizes the simulated visitors by the user agent each one declares. That tells Checkpoint the agent's name, not who really sent the request. Agents that sign their requests can be [verified cryptographically](https://kya.vouched.id/docs/detect/verification).
+Vouched KYA recognizes the simulated visitors by the user agent each one declares. That tells it the agent's name, not who really sent the request. Agents that sign their requests can be [verified cryptographically](https://kya.vouched.id/docs/detect/verification).
 
 ## Keeping your keys out of git
 
@@ -188,25 +188,25 @@ Checkpoint recognizes the simulated visitors by the user agent each one declares
 - `.gitignore` excludes every `.env` file except `.env.example`, which only holds placeholders, and the `.kya-os/` folder the kya-os CLI creates.
 - On macOS and Linux, the app writes `.env.local` so only your user can read it.
 - The API key is never displayed; the page only shows its last four characters.
-- The Checkpoint pixel only loads once _your_ Project ID is configured, so a fork never reports to someone else's project.
+- The Vouched KYA pixel only loads once _your_ Project ID is configured, so a fork never reports to someone else's project.
 
 ## Configuration
 
 | Setting                    | Where                                    | Default                                    | What it does                                                                                                |
 | -------------------------- | ---------------------------------------- | ------------------------------------------ | ----------------------------------------------------------------------------------------------------------- |
-| `CHECKPOINT_PROJECT_ID`    | Environment                              | _(none)_                                   | Your Checkpoint project. The pixel only needs this.                                                         |
+| `CHECKPOINT_PROJECT_ID`    | Environment                              | _(none)_                                   | Your Vouched KYA project. The pixel only needs this.                                                        |
 | `CHECKPOINT_API_KEY`       | Environment                              | _(none)_                                   | Optional. Lets the middleware report its detections and apply your dashboard policies. **Never commit it.** |
 | `CHECKPOINT_PIXEL_DEBUG`   | Environment                              | `false`                                    | Logs every report the pixel sends to your browser's console                                                 |
-| `CHECKPOINT_BASE_URL`      | Environment                              | `https://kya.vouched.id`                   | Only for a staging or self-hosted Checkpoint dashboard                                                      |
+| `CHECKPOINT_BASE_URL`      | Environment                              | `https://kya.vouched.id`                   | Only for a staging or self-hosted Vouched KYA dashboard                                                     |
 | `enforcementMode`          | [`src/checkpoint.ts`](src/checkpoint.ts) | `'observe'`                                | `'observe'` classifies and reports every request but never blocks; `'enforce'` blocks what the engine flags |
 | `engineConfig.tier3Action` | [`src/checkpoint.ts`](src/checkpoint.ts) | `'block'`                                  | Flags known AI agents, AI crawlers and headless browsers                                                    |
-| `matcher`                  | [`src/proxy.ts`](src/proxy.ts)           | Everything but static files and `/healthz` | Which requests Checkpoint checks                                                                            |
+| `matcher`                  | [`src/proxy.ts`](src/proxy.ts)           | Everything but static files and `/healthz` | Which requests Vouched KYA checks                                                                           |
 | `site.repositoryUrl`       | [`src/lib/site.ts`](src/lib/site.ts)     | This repository                            | Source links for your fork                                                                                  |
 
 See the [middleware reference](https://kya.vouched.id/docs/enforce/middleware) for every option `withCheckpoint` supports.
 
 > [!TIP]
-> Change `enforcementMode` to `'enforce'` in [`src/checkpoint.ts`](src/checkpoint.ts) and send the simulated traffic again. Checkpoint blocks the AI agents, AI crawlers and Headless Chrome, but lets Googlebot, curl and the Python script through.
+> Change `enforcementMode` to `'enforce'` in [`src/checkpoint.ts`](src/checkpoint.ts) and send the simulated traffic again. Vouched KYA blocks the AI agents, AI crawlers and Headless Chrome, but lets Googlebot, curl and the Python script through.
 
 ## Run the tests
 
@@ -214,7 +214,7 @@ See the [middleware reference](https://kya.vouched.id/docs/enforce/middleware) f
 npm test
 ```
 
-No Vouched keys or network access are needed. [`test/support/setup.ts`](test/support/setup.ts) swaps the Vouched API for a fake that records every detection Checkpoint reports, while every request still runs through the real Checkpoint engine.
+No Vouched keys or network access are needed. [`test/support/setup.ts`](test/support/setup.ts) swaps the Vouched API for a fake that records every detection Vouched KYA reports, while every request still runs through the real detection engine.
 
 | Test file                                                               | What it shows                                                                                                                     |
 | ----------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
@@ -231,7 +231,7 @@ Build with `npm run build`, then run `npm start` on any Node.js 22.12+ host, or 
 
 - Set `CHECKPOINT_PROJECT_ID` (and optionally `CHECKPOINT_API_KEY`) in your host's environment variables. Without a Project ID, every page returns an error and the server log explains how to fix it.
 - Point your host's health probe at `/healthz`.
-- Tell Checkpoint which proxy to trust for the visitor's IP address with `clientIpPolicy` in [`src/checkpoint.ts`](src/checkpoint.ts): `{ platform: 'vercel' }` on Vercel, or `{ platform: 'trusted-proxy', trustedHops: 1 }` behind a reverse proxy of your own.
+- Tell Vouched KYA which proxy to trust for the visitor's IP address with `clientIpPolicy` in [`src/checkpoint.ts`](src/checkpoint.ts): `{ platform: 'vercel' }` on Vercel, or `{ platform: 'trusted-proxy', trustedHops: 1 }` behind a reverse proxy of your own.
 
 ## Contributing
 

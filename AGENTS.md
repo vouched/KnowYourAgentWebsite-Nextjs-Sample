@@ -4,7 +4,9 @@ Guidance for AI coding agents (GitHub Copilot, Claude Code, Codex, Cursor and fr
 
 ## What this is
 
-A one-page Next.js 16 (App Router) app that shows .NET and JavaScript developers how to add [Checkpoint by Vouched](https://kya.vouched.id/docs/integrations/nextjs) AI agent detection to a Next.js site. You connect a Vouched project, send simulated AI agent and bot traffic through the Checkpoint middleware, and watch it arrive in the Vouched dashboard. It's a sample that people fork, so clarity beats cleverness.
+A one-page Next.js 16 (App Router) app that shows .NET and JavaScript developers how to add [Vouched KYA](https://kya.vouched.id/docs/integrations/nextjs) AI agent detection to a Next.js site. You connect a Vouched project, send simulated AI agent and bot traffic through the Vouched KYA middleware, and watch it arrive in the Vouched dashboard. It's a sample that people fork, so clarity beats cleverness.
+
+The product is called Vouched KYA. Use that name in anything people read: the page, terminal messages, the README and the blog post. The npm packages, their APIs, environment variables and response headers keep the name Checkpoint, so leave those as they are.
 
 ## Commands
 

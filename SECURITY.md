@@ -20,4 +20,4 @@ Only the latest commit on `main` is supported.
 
 ## Handling credentials
 
-This project never stores Vouched credentials in source control: they live in `.env.local`, which git ignores, or in your host's environment variables. If you accidentally commit an API key, **revoke it in the [Checkpoint dashboard](https://kya.vouched.id/dashboard) immediately** and create a new one. Removing it from git history is not enough once it has been pushed.
+This project never stores Vouched credentials in source control: they live in `.env.local`, which git ignores, or in your host's environment variables. If you accidentally commit an API key, **revoke it in the [Vouched KYA dashboard](https://kya.vouched.id/dashboard) immediately** and create a new one. Removing it from git history is not enough once it has been pushed.

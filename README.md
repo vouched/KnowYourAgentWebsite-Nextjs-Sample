@@ -96,7 +96,7 @@ cd KnowYourAgentWebsite-JavaScript-Nextjs
 npm install
 ```
 
-npm downloads everything listed in [`package.json`](package.json) into a `node_modules` folder. It takes a minute the first time, and you only need to run it again when `package.json` changes. It may print a few warnings, including a vulnerability summary for the linting tools; they come from development tools, not the app, and don't affect running it.
+npm downloads everything listed in [`package.json`](package.json) into a `node_modules` folder. It takes a minute the first time, and you only need to run it again when `package.json` changes. It may print a few warnings, including a vulnerability summary. The moderate findings come from development tools. The high ones all come from one advisory in [Zod](https://github.com/advisories/GHSA-mrhx-c7xc-m3w5), a library the Vouched KYA and Vercel packages depend on, and they go away when those packages update.
 
 ### 4. Start the app
 

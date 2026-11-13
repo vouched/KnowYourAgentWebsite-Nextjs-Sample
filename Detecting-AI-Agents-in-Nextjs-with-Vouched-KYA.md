@@ -10,7 +10,7 @@ You've probably heard of KYC (Know Your Customer). [Know Your Agent](https://kya
 
 ## Code
 
-You can find the completed code sample here: [https://github.com/TheCodeTraveler/KnowYourAgentWebsite-JavaScript-Nextjs](https://github.com/TheCodeTraveler/KnowYourAgentWebsite-JavaScript-Nextjs)
+You can find the completed code sample here: [https://github.com/vouched/KnowYourAgentWebsite-Nextjs-Sample](https://github.com/vouched/KnowYourAgentWebsite-Nextjs-Sample)
 
 ### Prerequisites
 
@@ -127,18 +127,18 @@ Vouched KYA even knows curl is a developer tool! One thing to know: the SDK wait
 
 ## Bonus: Unit Testing our Proxy
 
-Because the engine runs inside our app, we can unit test `proxy.ts` with any user agent we like, no network required. The sample's [Vitest tests](https://github.com/TheCodeTraveler/KnowYourAgentWebsite-JavaScript-Nextjs/tree/main/test) do exactly that, with [helpers](https://github.com/TheCodeTraveler/KnowYourAgentWebsite-JavaScript-Nextjs/tree/main/test/support) that fake Vouched's API, so our CI catches any `@kya-os/checkpoint-nextjs` update that changes how our traffic is classified.
+Because the engine runs inside our app, we can unit test `proxy.ts` with any user agent we like, no network required. The sample's [Vitest tests](https://github.com/vouched/KnowYourAgentWebsite-Nextjs-Sample/tree/main/test) do exactly that, with [helpers](https://github.com/vouched/KnowYourAgentWebsite-Nextjs-Sample/tree/main/test/support) that fake Vouched's API, so our CI catches any `@kya-os/checkpoint-nextjs` update that changes how our traffic is classified.
 
 ## Conclusion
 
 AI agents are already visiting our websites, and with `@kya-os/checkpoint-nextjs`, it only takes one function call (and zero dollars) to start seeing them.
 
-The [completed sample](https://github.com/TheCodeTraveler/KnowYourAgentWebsite-JavaScript-Nextjs) does everything in this post, plus one fun extra: paste your Project ID and API key into the page, click **Send simulated traffic**, and watch ChatGPT, Claude, Perplexity, GPTBot and more arrive in your dashboard!
+The [completed sample](https://github.com/vouched/KnowYourAgentWebsite-Nextjs-Sample) does everything in this post, plus one fun extra: paste your Project ID and API key into the page, click **Send simulated traffic**, and watch ChatGPT, Claude, Perplexity, GPTBot and more arrive in your dashboard!
 
 ![The sample app sending simulated AI agent and bot traffic through Vouched KYA](docs/images/simulated-traffic.png)
 
 _Why "Would be blocked"?_ The sample adds `engineConfig: { tier3Action: "block" }`, which tells Vouched KYA to block known AI agents, AI crawlers and headless browsers. Our `proxy.ts` leaves it out, which is why ChatGPT got `Permit`. In observe mode, nothing gets blocked either way.
 
-Building with .NET instead? Check out the [ASP.NET Core sample](https://github.com/TheCodeTraveler/KnowYourAgentWebsite-Dotnet-Blazor).
+Building with .NET instead? Check out the [Blazor Server sample](https://github.com/vouched/KnowYourAgentWebsite-Dotnet-Blazor).
 
 Next, we'll move from observing to enforcing with Enforce. Subscribe to the Vouched KYA newsletter at the bottom of the [Vouched KYA home page](https://kya.vouched.id/?utm_source=vouched-blog&utm_medium=blog&utm_campaign=kya-brandon-nextjs-2026-11&utm_content=conclusion-newsletter) so you don't miss it!

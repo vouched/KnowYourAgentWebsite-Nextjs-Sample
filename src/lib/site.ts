@@ -1,7 +1,7 @@
 /** Where this sample lives, for the source links on the page. Point it at your fork. */
 export const site = {
   name: "Know Your Agent",
-  repositoryUrl: "https://github.com/TheCodeTraveler/KnowYourAgentWebsite-JavaScript-Nextjs",
+  repositoryUrl: "https://github.com/vouched/KnowYourAgentWebsite-Nextjs-Sample",
 } as const;
 
 export function sourceUrl(path: string): string {

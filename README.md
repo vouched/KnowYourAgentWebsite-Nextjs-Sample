@@ -1,6 +1,6 @@
 # Know Your Agent: a Vouched KYA sample for Next.js
 
-[![Build and Test](https://github.com/TheCodeTraveler/KnowYourAgentWebsite-JavaScript-Nextjs/actions/workflows/build.yml/badge.svg)](https://github.com/TheCodeTraveler/KnowYourAgentWebsite-JavaScript-Nextjs/actions/workflows/build.yml)
+[![Build and Test](https://github.com/vouched/KnowYourAgentWebsite-Nextjs-Sample/actions/workflows/build.yml/badge.svg)](https://github.com/vouched/KnowYourAgentWebsite-Nextjs-Sample/actions/workflows/build.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-453FC1.svg)](LICENSE)
 [![Node.js 24](https://img.shields.io/badge/Node.js-24-5FA04E.svg)](https://nodejs.org/en/download)
 [![@kya-os/checkpoint-nextjs on npm](https://img.shields.io/npm/v/@kya-os/checkpoint-nextjs.svg?label=%40kya-os%2Fcheckpoint-nextjs)](https://www.npmjs.com/package/@kya-os/checkpoint-nextjs)
@@ -86,7 +86,7 @@ You should see `v24` or later (`v22.12` or later works too) for Node.js, and any
 ### 2. Download the code
 
 ```bash
-git clone https://github.com/TheCodeTraveler/KnowYourAgentWebsite-JavaScript-Nextjs.git
+git clone https://github.com/vouched/KnowYourAgentWebsite-Nextjs-Sample.git
 cd KnowYourAgentWebsite-JavaScript-Nextjs
 ```
 

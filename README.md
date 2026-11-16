@@ -7,7 +7,7 @@
 
 A small Next.js app that shows how to add [Vouched KYA](https://kya.vouched.id/docs/integrations/nextjs) to a website. Run it, connect your Vouched project, send it simulated AI agent and bot traffic, and watch every visit arrive in your Vouched KYA dashboard.
 
-Prefer .NET? The same sample for ASP.NET Core lives in [KnowYourAgentWebsite-Dotnet-Blazor](https://github.com/TheCodeTraveler/KnowYourAgentWebsite-Dotnet-Blazor).
+Prefer .NET? The same sample for ASP.NET Core lives in [KnowYourAgentWebsite-Dotnet-Blazor](https://github.com/vouched/KnowYourAgentWebsite-Dotnet-Blazor).
 
 ![ChatGPT, Claude, Perplexity, GPTBot, ClaudeBot, Googlebot, Headless Chrome, curl and a Python script, each classified by Vouched KYA and delivered to the dashboard](docs/images/simulated-traffic.png)
 

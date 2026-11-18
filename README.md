@@ -87,7 +87,7 @@ You should see `v24` or later (`v22.12` or later works too) for Node.js, and any
 
 ```bash
 git clone https://github.com/vouched/KnowYourAgentWebsite-Nextjs-Sample.git
-cd KnowYourAgentWebsite-JavaScript-Nextjs
+cd KnowYourAgentWebsite-Nextjs-Sample
 ```
 
 ### 3. Install the app's packages

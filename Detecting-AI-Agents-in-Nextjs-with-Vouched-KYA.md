@@ -6,7 +6,7 @@ AI agents like ChatGPT, Claude and Perplexity are already browsing websites on b
 
 You've probably heard of KYC (Know Your Customer). [Know Your Agent](https://kya.vouched.id/?utm_source=vouched-blog&utm_medium=blog&utm_campaign=kya-brandon-nextjs-2026-11&utm_content=intro-kya) (KYA) is the same idea for the agent era: knowing which AI agents are interacting with our business, and which human authorized them. [Vouched](https://www.vouched.id/?utm_source=vouched-blog&utm_medium=blog&utm_campaign=kya-brandon-nextjs-2026-11&utm_content=intro-vouched) built Vouched KYA on KYA-OS, an open standard it has donated to the [Decentralized Identity Foundation](https://identity.foundation).
 
-[Vouched Detect](https://kya.vouched.id/docs/detect?utm_source=vouched-blog&utm_medium=blog&utm_campaign=kya-brandon-nextjs-2026-11&utm_content=intro-detect) classifies every request that reaches our servers as `human`, `ai_agent`, `bot` or `incomplete_data`. In Next.js, we run Vouched's detection engine right inside our app's [Proxy](https://nextjs.org/docs/app/getting-started/proxy), adding just a few milliseconds to each request. And - the best part - Detect has a [free tier](https://kya.vouched.id/pricing?utm_source=vouched-blog&utm_medium=blog&utm_campaign=kya-brandon-nextjs-2026-11&utm_content=intro-pricing), no card required, that lets us try additional services like [Enforce](https://kya.vouched.id/docs/enforce?utm_source=vouched-blog&utm_medium=blog&utm_campaign=kya-brandon-nextjs-2026-11&utm_content=intro-enforce) and [Govern](https://kya.vouched.id/docs/govern?utm_source=vouched-blog&utm_medium=blog&utm_campaign=kya-brandon-nextjs-2026-11&utm_content=intro-govern), where we can apply policies to agents and verify who authorized them. (We'll cover those in future posts!)
+[Vouched Detect](https://kya.vouched.id/docs/detect?utm_source=vouched-blog&utm_medium=blog&utm_campaign=kya-brandon-nextjs-2026-11&utm_content=intro-detect) classifies every request that reaches our servers as `human`, `ai_agent`, `bot` or `incomplete_data`. In Next.js, we run Vouched's detection engine right inside our app's [Proxy](https://nextjs.org/docs/app/getting-started/proxy), adding just a few milliseconds to each request. And - the best part - Detect has a [free tier](https://kya.vouched.id/pricing?utm_source=vouched-blog&utm_medium=blog&utm_campaign=kya-brandon-nextjs-2026-11&utm_content=intro-pricing), no card required. Vouched KYA's paid plans add [Enforce](https://kya.vouched.id/docs/enforce?utm_source=vouched-blog&utm_medium=blog&utm_campaign=kya-brandon-nextjs-2026-11&utm_content=intro-enforce) and [Govern](https://kya.vouched.id/docs/govern?utm_source=vouched-blog&utm_medium=blog&utm_campaign=kya-brandon-nextjs-2026-11&utm_content=intro-govern), where we can apply policies to agents and verify who authorized them. (We'll cover those in future posts!)
 
 ## Code
 
@@ -16,7 +16,7 @@ You can find the completed code sample here: [https://github.com/vouched/KnowYou
 
 - A Next.js 16 app, using the App Router or the Pages Router
 - [Node.js 22.12](https://nodejs.org/en/download) or later
-- A free [Vouched KYA account](https://kya.vouched.id/signup?utm_source=vouched-blog&utm_medium=blog&utm_campaign=kya-brandon-nextjs-2026-11&utm_content=prereq-signup) with a project and an API key (it starts with `sk_`). 
+- A free [Vouched KYA account](https://kya.vouched.id/signup?utm_source=vouched-blog&utm_medium=blog&utm_campaign=kya-brandon-nextjs-2026-11&utm_content=prereq-signup) with a project and an API key (it starts with `sk_`).
 
 ### 1. Add the npm Package
 
@@ -71,7 +71,7 @@ Our website looks exactly the same, and that's the point.
 
 ### 5. Simulate Agent + Bot Traffic
 
-Now let's pretend to be ChatGPT. 
+Now let's pretend to be ChatGPT.
 
 In a second terminal (on Windows PowerShell, type `curl.exe` instead of `curl`):
 
@@ -90,6 +90,7 @@ x-checkpoint-would-have-been: Permit
 It works! Detect is running in observe mode, and `Permit` is what it would have done if it were enforcing. Within a minute, our request shows up in the [Vouched KYA dashboard](https://kya.vouched.id/dashboard?utm_source=vouched-blog&utm_medium=blog&utm_campaign=kya-brandon-nextjs-2026-11&utm_content=step5-dashboard) under **Detect → Activity** as an `ai_agent` named ChatGPT. 🎉 Not seeing it? Add `debug: true` to `withCheckpoint`, and the SDK logs why a report didn't reach Vouched, like a mistyped API key.
 
 Next, try OpenAI's GPTBot user agent:
+
 ```bash
 curl -I -A "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko); compatible; GPTBot/1.4; +https://openai.com/gptbot" http://localhost:3000/
 ```

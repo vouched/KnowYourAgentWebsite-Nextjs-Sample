@@ -19,7 +19,7 @@ Vouched KYA policies are written in [Cedar](https://www.cedarpolicy.com/), an op
 ### Prerequisites
 
 - The Next.js app from the [first post in this series]([LINK: the Next.js post])
-- A [Vouched KYA account](https://kya.vouched.id/signup?utm_source=vouched-blog&utm_medium=blog&utm_campaign=kya-brandon-enforce-2026-11&utm_content=post) with a project and an API key
+- A [Vouched KYA account](https://kya.vouched.id/signup?utm_source=vouched-blog&utm_medium=blog&utm_campaign=kya-brandon-enforce-2026-11&utm_content=post) on a paid plan, with a project and an API key. KYA Enforce isn't part of the free plan.
 
 Our app keeps its API key in `.env.local` and runs Vouched KYA in [`proxy.ts`](https://nextjs.org/docs/app/getting-started/proxy), the file Next.js runs before every request. It's in observe mode: it reports every request to our dashboard and logs it, but never blocks one. Here's the whole file we start from:
 
@@ -112,9 +112,9 @@ Our app is still in observe mode, so it never blocks anyone. That's the safest w
 First, let's add the decision to our log. In `proxy.ts`, in `onResult`, add `${result.decision.kind}` right after the colon:
 
 ```ts
-    console.log(
-      `${request.nextUrl.pathname}: ${result.decision.kind} ${detectionClass.type} ${detectedAgent?.name ?? ""} (${Math.round(confidence)}%)`,
-    );
+console.log(
+  `${request.nextUrl.pathname}: ${result.decision.kind} ${detectionClass.type} ${detectedAgent?.name ?? ""} (${Math.round(confidence)}%)`,
+);
 ```
 
 Our Next.js app checks for policy changes every five minutes, but we don't have to wait. Let's restart the dev server, so it loads our new policy right away: press Control-C in its terminal, then run `npm run dev` again.

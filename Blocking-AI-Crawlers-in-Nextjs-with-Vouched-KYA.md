@@ -8,7 +8,7 @@ An AI crawler, like OpenAI's GPTBot or Anthropic's ClaudeBot, is a bot that read
 
 AI agents are different. When ChatGPT visits our website, it's browsing for a real person who might buy something, book something or sign up. Those are our customers!
 
-And search engines, like Googlebot, still send us visitors. So here's our rule: block the AI crawlers, but let the AI agents and search engines in.
+And search engines, like Googlebot, still send us visitors. So here's the rule we'll create: block the AI crawlers, but let the AI agents and search engines in.
 
 A policy is a rule that decides what happens to each request, and [KYA Enforce](https://kya.vouched.id/docs/enforce?utm_source=vouched-blog&utm_medium=blog&utm_campaign=kya-brandon-enforce-2026-11&utm_content=post) applies our policies to every request. We write ours in the Vouched KYA dashboard, and our Next.js app downloads it.
 

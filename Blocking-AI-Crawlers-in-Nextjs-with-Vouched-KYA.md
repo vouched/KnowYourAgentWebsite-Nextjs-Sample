@@ -18,7 +18,7 @@ Vouched KYA policies are written in [Cedar](https://www.cedarpolicy.com/), an op
 
 ### Prerequisites
 
-- The Next.js app from the [first post in this series]([LINK: the Next.js post])
+- The Next.js app from the [first post in this series](https://www.vouched.id/learn/blog/detecting-ai-agents-in-next.js-with-vouched-kya?utm_source=vouched-blog&utm_medium=blog&utm_campaign=kya-brandon-enforce-2026-11&utm_content=post)
 - A [Vouched KYA account](https://kya.vouched.id/signup?utm_source=vouched-blog&utm_medium=blog&utm_campaign=kya-brandon-enforce-2026-11&utm_content=post) on a paid plan, with a project and an API key. KYA Enforce isn't part of the free plan.
 
 Our app keeps its API key in `.env.local` and runs Vouched KYA in [`proxy.ts`](https://nextjs.org/docs/app/getting-started/proxy), the file Next.js runs before every request. It's in observe mode: it reports every request to our dashboard and logs it, but never blocks one. Here's the whole file we start from:

@@ -91,13 +91,13 @@ The comment names our policy, and the two lines that start with `@` give it an I
 
 Click the purple button in the corner of the box (or press Command-Return), and Vouched KYA reads our policy back to us in plain English: "Block scraper agents on every path, no way through." Anything our policy doesn't block is still allowed, so AI agents and search engines get right in.
 
-![Our policy, read back in plain English](images/policy-review.png)
+_Screenshot to come: our policy, read back in plain English._
 
 ### 3. Test it with a replay
 
 Before our policy touches any real traffic, let's test it. Under **What would happen**, click **Run the replay**. Vouched KYA replays our policy against sample requests, or against the last seven days of our website's traffic, without blocking anyone.
 
-![The replay results](images/replay.png)
+_Screenshot to come: the replay results._
 
 GPTBot and the other crawlers would be blocked, while people, AI agents like Claude, and other bots get in. Exactly what we want!
 
@@ -206,13 +206,13 @@ Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko); compatible; GPTBot/1.4; +htt
 
 Reload, and there's our page!
 
-![Our blocked page, as GPTBot sees it](images/blocked-page.png)
+_Screenshot to come: our blocked page, as GPTBot sees it._
 
 When we're done, check **Use browser default** again.
 
 And in our dashboard, under **Activity**, our GPTBot requests now show the verdict **BLOCK**, with our policy's name and the reason, `PolicyDenied`.
 
-![Blocked GPTBot requests under Activity](images/activity-blocked.png)
+_Screenshot to come: blocked GPTBot requests under Activity._
 
 ## Conclusion
 

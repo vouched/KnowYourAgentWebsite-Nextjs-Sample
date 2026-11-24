@@ -19,7 +19,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@kya-os/checkpoint-nextjs": "1.13.0",
+    "@kya-os/checkpoint-nextjs": "1.15.0",
     "@kya-os/checkpoint-wasm-runtime": "^1.15.0",
     "next": "16.4.6",
     "react": "19.3.1",
